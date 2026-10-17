@@ -1,1 +1,92 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#101326">
+  <meta name="description" content="MusicFlow — موزیک پلیر شیشه‌ای">
+  <title>MusicFlow | موزیک پلیر</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon-192.png">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="ambient ambient-a"></div><div class="ambient ambient-b"></div>
+  <main class="app-shell">
+    <header class="topbar glass">
+      <div class="brand">
+        <div class="brand-icon"><span>♫</span></div>
+        <div><strong>MusicFlow</strong><small>موزیک پلیر شیشه‌ای</small></div>
+      </div>
+      <button id="installBtn" class="icon-btn install-btn" hidden aria-label="نصب برنامه">＋ نصب</button>
+      <button id="themeBtn" class="icon-btn" aria-label="تغییر ظاهر">◐</button>
+    </header>
 
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow"><i></i> موسیقی، با حال‌وهوای تو</span>
+        <h1>صدای خودت را<br><em>زندگی کن.</em></h1>
+        <p>آهنگ‌هایت را انتخاب کن و در فضای شیشه‌ای و آرام گوش بده.</p>
+      </div>
+      <div class="hero-orb" aria-hidden="true"><div class="orb-ring"></div><div class="orb-disc">♫</div><span class="spark spark-1"></span><span class="spark spark-2"></span></div>
+    </section>
+
+    <section class="player-card glass">
+      <div class="section-heading"><div><span class="eyebrow">در حال پخش</span><h2>پخش‌کننده</h2></div><span class="live-pill"><i></i> PLAYER</span></div>
+      <div class="now-playing">
+        <div class="album-wrap" id="albumWrap">
+          <div class="album-art" id="albumArt"><span class="album-note">♫</span></div>
+          <div class="album-glow"></div>
+        </div>
+        <div class="track-info">
+          <h3 id="trackTitle">هنوز آهنگی انتخاب نشده</h3>
+          <p id="trackArtist">از گوشی خودت موسیقی اضافه کن</p>
+          <div class="track-tags"><span>LOCAL AUDIO</span><span id="trackFormat">MP3 · WAV · M4A</span></div>
+        </div>
+      </div>
+      <div class="waveform" id="waveform" aria-hidden="true"></div>
+      <div class="progress-area">
+        <input id="seekBar" type="range" min="0" max="1000" value="0" aria-label="موقعیت آهنگ">
+        <div class="time-row"><span id="currentTime">۰:۰۰</span><span id="duration">۰:۰۰</span></div>
+      </div>
+      <div class="controls">
+        <button id="shuffleBtn" class="control-side" aria-label="پخش تصادفی" title="تصادفی">⤨</button>
+        <button id="prevBtn" class="control-side" aria-label="آهنگ قبلی">⏮</button>
+        <button id="playBtn" class="play-main" aria-label="پخش">▶</button>
+        <button id="nextBtn" class="control-side" aria-label="آهنگ بعدی">⏭</button>
+        <button id="repeatBtn" class="control-side" aria-label="تکرار" title="تکرار">↻</button>
+      </div>
+      <div class="volume-row"><span>کم</span><span class="volume-symbol">◖))</span><input id="volumeBar" type="range" min="0" max="1" step="0.01" value="0.8" aria-label="بلندی صدا"><span>زیاد</span></div>
+      <audio id="audio" preload="metadata"></audio>
+    </section>
+
+    <section class="library-card glass">
+      <div class="section-heading library-heading"><div><span class="eyebrow">کتابخانه شخصی</span><h2>موسیقی‌های من</h2></div><button id="addMusicBtn" class="primary-btn">＋ افزودن آهنگ</button></div>
+      <div class="search-wrap"><span>⌕</span><input id="searchInput" type="search" placeholder="جست‌وجوی آهنگ یا نام فایل..." aria-label="جست‌وجو"></div>
+      <div class="library-tools"><span id="songCount">۰ آهنگ</span><button id="favoritesFilter" class="filter-btn">♡ موردعلاقه‌ها</button><button id="timerBtn" class="filter-btn">◷ تایمر خواب</button></div>
+      <input id="fileInput" type="file" accept="audio/*" multiple hidden>
+      <div id="trackList" class="track-list">
+        <div class="empty-state"><div class="empty-icon">♫</div><strong>کتابخانه‌ات هنوز خالی است</strong><p>با زدن «افزودن آهنگ»، فایل‌های صوتی گوشی را انتخاب کن.</p></div>
+      </div>
+    </section>
+
+    <footer><span class="footer-mark">♫</span><span>MusicFlow</span><span class="footer-dot">•</span><span>موسیقی در یک فضای شیشه‌ای</span></footer>
+  </main>
+
+  <div id="timerModal" class="modal-backdrop" hidden>
+    <div class="modal glass">
+      <button id="closeModal" class="modal-close" aria-label="بستن">×</button>
+      <span class="eyebrow">SLEEP TIMER</span><h2>تایمر خواب</h2>
+      <p>پخش موسیقی پس از این مدت متوقف می‌شود.</p>
+      <div class="timer-options">
+        <button data-minutes="15">۱۵ دقیقه</button><button data-minutes="30">۳۰ دقیقه</button><button data-minutes="45">۴۵ دقیقه</button><button data-minutes="60">۶۰ دقیقه</button>
+      </div>
+      <button id="cancelTimer" class="secondary-btn">لغو تایمر</button>
+      <small id="timerStatus"></small>
+    </div>
+  </div>
+  <div id="toast" class="toast" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>
